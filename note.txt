@@ -1,0 +1,6 @@
+1. create payment account // by default test mode
+2. goto setting (by clicking setting icon)
+  2.1 Account Details, Branding (change payment view color logo)
+3. Developer -> API Key
+ 3.1 Publishable Key //frontend
+ 3.2 Secret key // backend
