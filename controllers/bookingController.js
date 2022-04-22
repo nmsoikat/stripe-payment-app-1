@@ -1,6 +1,7 @@
 const BookingProduct = require('../model/BookingProduct')
 const Product = require('../model/Product')
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
+const mongoose = require('mongoose')
 
 exports.getCheckoutSession = async (req, res, next) => {
   try {
@@ -25,7 +26,7 @@ exports.getCheckoutSession = async (req, res, next) => {
       // customer_email: req.user.email,
       customer_email: 'testStaticUser@gmail.com',
       // client_reference_id: req.params.tourId, //will help save the information into DB
-      client_reference_id: product._id,
+      client_reference_id: product._id.toString(),
 
       //product details: //all these field from stripe
       line_items: [
@@ -67,7 +68,7 @@ exports.getCheckoutSession = async (req, res, next) => {
 // }
 
 const createProductBooking = async (session) => {
-  const product = session.client_reference_id;
+  const product = mongoose.Types.ObjectId(session.client_reference_id);
   const price = session.amount_total
   // const user = (await User.findOne({email: session.customer_email}))._id;
   const user = "test user"
@@ -76,7 +77,6 @@ const createProductBooking = async (session) => {
 // create booking // secure way
 exports.webhookCheckout = (req, res, next) => {
   const signature = req.headers['stripe-signature'];
-  console.log('trest:');
   let event;
 
   try {
@@ -89,7 +89,6 @@ exports.webhookCheckout = (req, res, next) => {
   if (event.type === 'checkout.session.completed') {
     createProductBooking(event.data.object)
   }
-  console.log('type:',event.type);
 
   res.status(200).json({ received: true }) //res send back to strip
 }
