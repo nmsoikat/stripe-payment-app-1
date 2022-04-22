@@ -1,0 +1,13 @@
+extends base
+block content
+  div.container
+    div.row
+      h1.display-3 All Booking Product
+    div.row
+      each product in bookingProducts
+        div.col-md-3.mb-3
+          div.card.p-3.shadow-sm
+            h3.title #{product.name}
+            p.lead price: #{product.price} tk
+            p.small user: #{product.user}
+            p.badge.badge-success = product.paid && "paid"
