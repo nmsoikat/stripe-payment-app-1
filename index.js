@@ -6,6 +6,7 @@ const productRouter = require('./routes/productRouter')
 const app = express()
 const mongoose = require('mongoose');
 const { createProductBooking } = require('./controllers/bookingController');
+const compression = require('compression')
 
 mongoose.connect(process.env.DATABASE)
   .then(() => {
@@ -14,8 +15,11 @@ mongoose.connect(process.env.DATABASE)
     console.log(err);
   })
 
-app.set('view engine', 'pug');
-app.set('views', path.join(__dirname, 'views'));
+  app.use(compression()) //all text will compressed
+  
+
+  app.set('view engine', 'pug');
+  app.set('views', path.join(__dirname, 'views'));
 
 // Body parser, reading data from body into req.body
 app.use(express.json())

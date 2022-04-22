@@ -5,7 +5,7 @@ window.onload = function () {
   const bookTour = (id) => {
     try {
       //1) Get the checkout sessions from the server
-      fetch(`http://localhost:8800/booking/checkout-session/${id}`)
+      fetch(`/booking/checkout-session/${id}`)
         .then(res => res.json())
         .then(async (data) => {
 
