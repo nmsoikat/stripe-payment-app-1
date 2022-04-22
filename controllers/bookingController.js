@@ -20,7 +20,7 @@ exports.getCheckoutSession = async (req, res, next) => {
     const sessions = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       // success_url: `${req.protocol}://${req.get('host')}/?product=${product._id}&user=testUser&price=${product.price}`, // http :// localhost:8800
-      success_url: `${req.protocol}://${req.get('host')}/booked`,
+      success_url: `${req.protocol}://${req.get('host')}/booking-completed`,
       cancel_url: `${req.protocol}://${req.get('host')}/`,
       // customer_email: req.user.email,
       customer_email: 'testStaticUser@gmail.com',
@@ -76,7 +76,7 @@ const createProductBooking = async (session) => {
 // create booking // secure way
 exports.webhookCheckout = (req, res, next) => {
   const signature = req.headers['stripe-signature'];
-
+  console.log('trest:');
   let event;
 
   try {
@@ -89,6 +89,7 @@ exports.webhookCheckout = (req, res, next) => {
   if (event.type === 'checkout.session.completed') {
     createProductBooking(event.data.object)
   }
+  console.log('type:',event.type);
 
   res.status(200).json({ received: true }) //res send back to strip
 }
