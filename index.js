@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path')
 const bookingRouter = require('./routes/bookingRouter');
 const productRouter = require('./routes/productRouter')
+const viewRouter = require('./routes/viewRouter')
 const app = express()
 const mongoose = require('mongoose');
 const { createProductBooking } = require('./controllers/bookingController');
@@ -27,8 +28,11 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 
 app.use(express.static(`${__dirname}/public`))
 
-app.use('/booking', bookingRouter)
-app.use('/product', productRouter)
+//view route
+app.use('/', viewRouter)
+//api route
+app.use('/api/v1/booking', bookingRouter)
+app.use('/api/v1/product', productRouter)
 
 app.get('/', createProductBooking, (req, res, next) => {
   res.status(200).render('base')
