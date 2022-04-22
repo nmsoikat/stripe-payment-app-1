@@ -4,3 +4,21 @@
 3. Developer -> API Key
  3.1 Publishable Key //frontend
  3.2 Secret key // backend
+
+4. For secure the success url.
+  4.1 Developer > webhooks > add endpoint //original url > add event //checkout.session.completed
+  important: implement the post route before json middleware
+  
+  note: And then go here to developers, then choose webhooks,
+  and here, add a new endpoint.
+  Now what is this endpoint here and this webhook?
+  Basically we're gonna specify a URL here
+  to which Stripe will automatically send a POST request to
+  whenever a checkout session has successfully completed,
+  so basically whenever a payment was successful.
+  With that POST request, Stripe will then send back
+  the original session data that we created in the first step
+  when we created that checkout session.
+  That's the reason why we actually needed our website
+  to be deployed here because now we need to specify
+  that real-life URL here.
