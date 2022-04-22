@@ -9,7 +9,7 @@ router.get('/',
   })
 
 router.route('/product').get(readAll)
-router.route('/booked').get(readAllBooking)
+router.route('/booking-completed').get(readAllBooking)
 // router.route('/:id').get(readById)
 
 

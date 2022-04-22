@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bookingProductSchema = new mongoose.Schema({
   product:{
     type: mongoose.Types.ObjectId,
-    ref: 'product',
+    ref: 'Product',
     required: [true, 'Must have product']
   },
   user: {
@@ -23,7 +23,11 @@ const bookingProductSchema = new mongoose.Schema({
 })
 
 bookingProductSchema.pre(/^find/, function(next){
-  this.populate('product', 'name price')
+  this.populate({
+    path: 'product',
+    select: 'name'
+  })
+  next();
 })
 
 module.exports = mongoose.model('BookingProduct', bookingProductSchema)

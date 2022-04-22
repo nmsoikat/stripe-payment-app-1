@@ -39,7 +39,7 @@ app.use('/api/v1/booking', bookingRouter)
 app.use('/api/v1/product', productRouter)
 
 app.get('*', (req, res, next) => {
-  res.status(404).render('<h1 class="text-center mt-5"> 404 | Page not found</h1>')
+  res.status(404).send('<h1 class="text-center mt-5"> 404 | Page not found</h1>')
 })
 
 const PORT = process.env.PORT || 8800;
