@@ -5,7 +5,7 @@ window.onload = function () {
   const bookTour = (id) => {
     try {
       //1) Get the checkout sessions from the server
-      fetch(`/booking/checkout-session/${id}`) //about url: run in save server it will work fine
+      fetch(`/api/v1/booking/checkout-session/${id}`) //about url: run in save server it will work fine
         .then(res => res.json())
         .then(async (data) => {
 
