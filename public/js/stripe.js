@@ -23,11 +23,14 @@ window.onload = function () {
 
 
 
-  const buyBtn = document.getElementById('buyBtn')
+  let buyBtns = document.querySelectorAll('.buyBtn')
 
-  buyBtn.addEventListener('click', (e) => {
-    e.target.textContent = "processing..."
-    const {id} = e.target.dataset;
-    bookTour(id)
+  buyBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.target.textContent = "processing..."
+      const {id} = e.target.dataset;
+      bookTour(id)
+    })
   })
+
 }
